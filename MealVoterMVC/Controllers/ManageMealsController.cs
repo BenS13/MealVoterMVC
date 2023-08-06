@@ -4,9 +4,10 @@ namespace MealVoterMVC.Controllers
 {
     public class ManageMealsController : Controller
     {
+        //Get: "/ManageMeals"
         public IActionResult Index()
         {
-            return View();
+            return View();//Returns View /ManageMeals/Index.cshtml
         }
     }
 }
