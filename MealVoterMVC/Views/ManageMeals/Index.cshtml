@@ -30,8 +30,8 @@
                 <td>@meal.Name</td>
                 <td>@meal.Type</td>
                 <td>
-                    <form method="post" asp-page-handler="Delete" asp-route-id="@meal.Id">
-                        <button class="btn btn-danger">Delete</button>
+                    <form method="post" asp-action="Delete" asp-route-id="@meal.Id">
+                        <button class="btn btn-danger">Delete, @meal.Id</button>
                     </form>
                 </td>
             </tr>
