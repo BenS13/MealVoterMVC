@@ -1,7 +1,30 @@
-﻿@{
+﻿@model MealVoterMVC.Models.Meal
+@{
     ViewData["Title"] = "Create Meal 🍽";
 }
 
 <div class="text-center">
     <h1 class="display-4">Create New Meal 🍽️</h1>
 </div>
+
+<!--Form -->
+<form method="post" asp-action="CreateNew">
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" />
+        
+    </div>
+    <div class="form-group">
+        <label asp-for="Type" class="control-label"></label>
+        <select asp-for="Type" class="form-control" id="MealType">
+            <option value="">-- Select Type --</option>
+            <option value="Breakfast">Breakfast</option>
+            <option value="Lunch">Lunch</option>
+            <option value="Dinner">Dinner</option>
+        </select>
+        
+    </div>
+    <div class="form-group">
+        <input type="submit" value="submit" class="btn btn-primary" />
+    </div>
+</form>
