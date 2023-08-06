@@ -1,8 +1,41 @@
-﻿@{
+﻿@model List<MealVoterMVC.Models.Meal>
+@{
     ViewData["Title"] = "Manage Meals 🍽";
 }
 
 <div class="text-center">
     <h1 class="display-4">Manage Avaliable Meals 🍽️</h1>
+
+    <!--Link to form to add new meal-->
+    <a asp-area="" asp-controller="ManageMeals" asp-action="Create">Create New Meal 🍽️</a>
     
 </div>
+
+
+
+
+<!--List of avaliable meals-->
+<table class="table mt-5">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Meal Type</th>
+            <th scope="col">Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var meal in Model)
+        {
+            <tr>
+                <td>@meal.Name</td>
+                <td>@meal.Type</td>
+                <td>
+                    <form method="post" asp-page-handler="Delete" asp-route-id="@meal.Id">
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+
+        }
+    </tbody>
+</table>
