@@ -7,7 +7,7 @@
     <h1 class="display-4">Create New Meal🍽️</h1>
 </div>
 
-<!--Form -->
+<!--Form 
 <form method="post" asp-action="CreateNew">
     <div class="form-group">
         <label asp-for="Name" class="control-label"></label>
@@ -23,16 +23,40 @@
             <option value="Dinner">Dinner</option>
         </select>
         
-        <!--This form part onyl temporary, needed for testing deletion because Lists allow all Ids to be zero
+        This form part onyl temporary, needed for testing deletion because Lists allow all Ids to be zero
      <div class="form-group">
             <label asp-for="Id" class="control-label"></label>
             <input asp-for="Id" class="form-control" />
 
      </div>
-        -->
+        
     
     </div>
     <div class="form-group">
         <input type="submit" value="submit" class="btn btn-primary" />
     </div>
-</form>
+</form>-->
+
+<!--Form to add new meal-->
+@using (Html.BeginForm("CreateNew", "ManageMeals", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name, new { @class = "control-label"})
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control"})
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Type, new { @class = "control-label"})
+        @Html.DropDownListFor(m => m.Type,  new List<SelectListItem> 
+        {
+            new SelectListItem{Text="Breakfast", Value="Breakfast"},
+            new SelectListItem{Text="Lunch", Value="Lunch"},
+            new SelectListItem{Text="Dinner", Value="Dinner"}
+        }, "-- Select Type --", new { @class = "form-control"}
+        )
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="submit" class="btn btn-primary" />
+    </div>
+}
