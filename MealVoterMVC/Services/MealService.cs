@@ -5,22 +5,25 @@ namespace MealVoterMVC.Services
 {
     public class MealService
     {
-        private readonly MealContext _context = default!;
+        private readonly MealContext _context = default!;//Hold instance of MealContext (Database Connection)
 
-        public MealService(MealContext context)
+        public MealService(MealContext context)//Retrive an instance of MealContext on Instantation
         {
             _context = context;
         }
 
+
+        //Method to retrive all meals from DB
         public IList<Meal> GetMeals()
         {
-            if (_context.Meals != null) 
+            if (_context.Meals != null) //If there are meals in DB
             {
-                return _context.Meals.ToList();
+                return _context.Meals.ToList();//Convert to List and return
             }
-            return new List<Meal>();
+            return new List<Meal>();//Else, return an empty List of type Meal
         }
 
+        //Method to get a meal by its id
         public Meal GetMealById(int id)
         {
             if (_context.Meals != null)
@@ -30,6 +33,7 @@ namespace MealVoterMVC.Services
             return new Meal();
         }
 
+        //Method to add a new meal to the DB
         public void AddMeal(Meal meal)
         {
             if (_context.Meals != null)
@@ -39,6 +43,8 @@ namespace MealVoterMVC.Services
             }
         }
 
+
+        //Method to delete a meal from DB by id
         public void DeleteMeal(int id)
         {
             if (_context.Meals != null)

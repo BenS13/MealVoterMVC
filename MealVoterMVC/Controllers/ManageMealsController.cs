@@ -8,8 +8,9 @@ namespace MealVoterMVC.Controllers
     {
         private readonly MealService _mealService;
 
-        public static IList<Meal> Meals { get; set; } = default!;
+        public static IList<Meal> Meals { get; set; } = default!;//IList to hold List of meal objects returned from database
 
+        //Inject the MealService into this controller on Ininiation
         public ManageMealsController(MealService mealService)
         {
             _mealService = mealService;
@@ -20,7 +21,7 @@ namespace MealVoterMVC.Controllers
         //Passes List<Meal> Meals list into View
         public IActionResult Index()
         {
-            Meals = _mealService.GetMeals();
+            Meals = _mealService.GetMeals();//Get all meals from DB
             return View(Meals);//Returns View /ManageMeals/Index.cshtml
         }
 
@@ -41,9 +42,9 @@ namespace MealVoterMVC.Controllers
         [HttpPost]
         public IActionResult CreateNew(Meal _newMeal)
         {
-            if (!ModelState.IsValid || _newMeal == null)
+            if (!ModelState.IsValid || _newMeal == null)//If model passed from Form is not valid or newMeal object is null
             {
-                return View();
+                return View("Create");//Return View contaning form
             }
             _mealService.AddMeal(_newMeal);//Call addmeal method in mealService with newmeal to add as input
             return RedirectToAction("Index");//Redirect to index page where List(Meals) displayed
@@ -56,7 +57,7 @@ namespace MealVoterMVC.Controllers
         [HttpPost]
         public IActionResult Delete(int id)
         {
-            _mealService.DeleteMeal(id);//Call DeleteMeak method from MealService.cs with id of meal to delete as input
+            _mealService.DeleteMeal(id);//Call DeleteMeal method from MealService.cs with id of meal to delete as input
             return RedirectToAction("Index");//Redirect to Index which returns View containing List of meals
         }
     }
