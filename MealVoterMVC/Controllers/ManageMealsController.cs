@@ -6,7 +6,7 @@ namespace MealVoterMVC.Controllers
 {
     public class ManageMealsController : Controller
     {
-        private readonly MealService _mealService;
+        private readonly MealService _mealService;//Attribute to store an instance of the MealService
 
         public static IList<Meal> Meals { get; set; } = default!;//IList to hold List of meal objects returned from database
 
