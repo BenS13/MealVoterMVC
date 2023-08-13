@@ -1,7 +1,17 @@
+using Microsoft.EntityFrameworkCore;
+using MealVoterMVC.Data;
+using MealVoterMVC.Services;
+using MealVoterMVC.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<MealContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ContentContext") ?? throw new InvalidOperationException("Connection string 'ContentContext' not found.")));
+
+//Register the MealService so it can be injected into any page
+builder.Services.AddScoped<MealService>();
 
 var app = builder.Build();
 

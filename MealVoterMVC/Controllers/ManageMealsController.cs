@@ -1,21 +1,31 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MealVoterMVC.Models;
+using MealVoterMVC.Services;
 
 namespace MealVoterMVC.Controllers
 {
     public class ManageMealsController : Controller
     {
-        public static List<Meal> Meals = new List<Meal>();//Tempary List until DB connected
+        private readonly MealService _mealService;
+
+        public static IList<Meal> Meals { get; set; } = default!;
+
+        public ManageMealsController(MealService mealService)
+        {
+            _mealService = mealService;
+        }
+
 
         //GET: "/ManageMeals"
         //Passes List<Meal> Meals list into View
         public IActionResult Index()
         {
+            Meals = _mealService.GetMeals();
             return View(Meals);//Returns View /ManageMeals/Index.cshtml
         }
 
         
-        //GET: "/ManageMeals/Create
+        //GET: "/ManageMeals/Create"
         //Renders form to add a new meal
         [HttpGet]
         public IActionResult Create()
@@ -31,21 +41,22 @@ namespace MealVoterMVC.Controllers
         [HttpPost]
         public IActionResult CreateNew(Meal _newMeal)
         {
-            Meals.Add(_newMeal);//Add new Meal object to List(Meals)
+            if (!ModelState.IsValid || _newMeal == null)
+            {
+                return View();
+            }
+            _mealService.AddMeal(_newMeal);//Call addmeal method in mealService with newmeal to add as input
             return RedirectToAction("Index");//Redirect to index page where List(Meals) displayed
         }
 
         
         //POST: "/ManageMeals/Delete/{id}"
         //Takes Id of Meal object as parameter input
-        //Finds the index of the Meal object in the Meals List where Id=id
-        //Removes object from Meals List
+        //Calls delete method in MealService.cs to delete selected meal from DB
         [HttpPost]
         public IActionResult Delete(int id)
         {
-            //This will change to act on DB
-            int index = Meals.FindIndex(p => p.Id == id);//Find the index of the Meal object that has property Id=id
-            Meals.RemoveAt(index);
+            _mealService.DeleteMeal(id);//Call DeleteMeak method from MealService.cs with id of meal to delete as input
             return RedirectToAction("Index");//Redirect to Index which returns View containing List of meals
         }
     }
