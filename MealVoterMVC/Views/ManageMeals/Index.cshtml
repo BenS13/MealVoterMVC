@@ -1,4 +1,4 @@
-﻿@model List<MealVoterMVC.Models.Meal>
+﻿@model IList<MealVoterMVC.Models.Meal>
 @{
     ViewData["Title"] = "Manage Meals 🍽";
 }
@@ -27,11 +27,11 @@
         @foreach (var meal in Model)
         {
             <tr>
-                <td>@meal.Name</td>
-                <td>@meal.Type</td>
+                <td>@Html.DisplayFor(m => meal.Name)</td>
+                <td>@Html.DisplayFor(m => meal.Type)</td>
                 <td>
                     <form method="post" asp-action="Delete" asp-route-id="@meal.Id">
-                        <button class="btn btn-danger">Delete, @meal.Id</button>
+                        <button class="btn btn-danger">Delete</button>
                     </form>
                 </td>
             </tr>
