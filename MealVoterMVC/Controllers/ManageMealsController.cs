@@ -8,6 +8,7 @@ namespace MealVoterMVC.Controllers
     {
         private readonly MealService _mealService;//Attribute to store an instance of the MealService
 
+        
         public static IList<Meal> Meals { get; set; } = default!;//IList to hold List of meal objects returned from database
 
         //Inject the MealService into this controller on Ininiation
@@ -40,7 +41,7 @@ namespace MealVoterMVC.Controllers
         //Adds Meal object to list of Meal objects
         //Will connect DB soon
         [HttpPost]
-        public IActionResult CreateNew(Meal _newMeal)
+        public IActionResult CreateNew([Bind("Id", "Name", "Type")] Meal _newMeal)
         {
             if (!ModelState.IsValid || _newMeal == null)//If model passed from Form is not valid or newMeal object is null
             {
